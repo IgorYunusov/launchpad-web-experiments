@@ -1,0 +1,12 @@
+@import 'materialize/materialize';
+@import 'bourbon/bourbon';
+
+/* Official Theme Colors */
+$dark-blue: #2F3540;
+$blue: #666A73;
+$light-grey: #F2EDE4;
+$grey: #D9D1C7;
+$dark-grey: #8C8681;
+
+/* Import Custom Style Sheets*/
+@import 'parallax';

@@ -9,7 +9,7 @@ var browserSync = require('browser-sync').create();
 var reload = browserSync.reload;
 
 gulp.task('sass', function() {
-    var scssStream = gulp.src('sass/theme.scss')
+    var scssStream = gulp.src(['sass/theme.scss', 'sass/codrops/*.scss'])
         .pipe(sass())
         .pipe(concat('style.css'))
         .pipe(autoprefixer())
@@ -20,8 +20,8 @@ gulp.task('sass', function() {
 });
 
 gulp.task('js', function() {
-    var rootStream = gulp.src('js/app.js');
-    var dependenciesStream = gulp.src(['js/**/*.js', 'templates/**/*.js', '!templates/pages/lab/experiments/**/*.js', '!js/vendor/*.js', '!js/script.js', '!js/app.js']);
+    var dependenciesStream = gulp.src(['js/vendor/**/*.js']);
+    var customStream = gulp.src(['!js/script.js', 'js/*.js']);
     var mergeStream = merge(rootStream, dependenciesStream)
         .pipe(babel({
             'presets': ['es2015']
@@ -40,7 +40,6 @@ gulp.task('serve', ['sass', 'js'], function() {
     gulp.watch('sass/*.scss', ['sass']);
     gulp.watch('*.html').on('change', reload);
     gulp.watch('**/*.html').on('change', reload);
-    // gulp.watch('**/*.js', ['js']).on('change', reload);
     gulp.watch('*.js', ['js']).on('change', reload);
     gulp.watch('js/**/*.js', ['js']).on('change', reload);
 });
