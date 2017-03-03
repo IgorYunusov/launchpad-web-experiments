@@ -1,5 +1,6 @@
 .parallax-container {
 	height: 180px;
+	z-index: 100;
 
 	.title-cover {
 		width: 100%;
@@ -14,13 +15,15 @@
 			z-index: 999;
 
 			h3 {
-				@include font($alt-display-font, 1.8em, 600);
+				font-weight: 600;
+				font-size: 1.6em;
 				letter-spacing: 2px;
 				margin-bottom: 0.2em;
 			}
 
 			p {
-				@include font($content-font, 1.2em, 200);
+				font-weight: 200;
+				font-size: 1.2em;
 				opacity: 0.9;
 				max-width: 80%;
 				margin: auto;

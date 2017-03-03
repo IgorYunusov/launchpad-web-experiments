@@ -1,0 +1,18 @@
+.experiment {
+	margin-top: 3em;
+	margin-bottom: 3em;
+	padding: 4em 2em 4em 2em;
+	border-radius: 10px;
+
+	span {
+		display: inline-block;
+		background-color: color('blue', 'lighten-4');
+		margin: 1em;
+		border-radius: 6px;
+		box-shadow: 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.3);
+	}
+
+	span:hover {
+		cursor: pointer;
+	}
+}

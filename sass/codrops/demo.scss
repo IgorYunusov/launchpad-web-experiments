@@ -2,11 +2,11 @@
 	font-weight: normal;
 	font-style: normal;
 	font-family: 'codropsicons';
-	src:url('fonts/codropsicons/codropsicons.eot');
-	src:url('fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
-		url('fonts/codropsicons/codropsicons.woff') format('woff'),
-		url('fonts/codropsicons/codropsicons.ttf') format('truetype'),
-		url('fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
+	src:url('../fonts/codropsicons/codropsicons.eot');
+	src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/codropsicons/codropsicons.woff') format('woff'),
+		url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
+		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
 }
 
 *, *::after, *::before { -webkit-box-sizing: border-box; box-sizing: border-box; }
@@ -87,19 +87,6 @@ a:hover, a:focus {
 	white-space: nowrap;
 	pointer-events: auto;
 	margin: 0 0 0 -0.5em;
-}
-
-.codrops-links::after {
-	content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1px;
-    height: 110%;
-    background: #323F5C;
-    opacity: 0.1;
-    -webkit-transform: translateY(-50%) rotate3d(0, 0, 1, 22.5deg);
-    transform: translateY(-50%) rotate3d(0, 0, 1, 22.5deg);
 }
 
 .codrops-icon {

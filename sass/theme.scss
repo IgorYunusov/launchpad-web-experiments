@@ -7,6 +7,21 @@ $blue: #666A73;
 $light-grey: #F2EDE4;
 $grey: #D9D1C7;
 $dark-grey: #8C8681;
+$red: #f15034;
+
+/* Custom Styles */
+html, body {
+	height: 100%;
+}
+
+.highlight {
+	color: color("materialize-red", "lighten-2");
+}
+
+.footnote {
+	color: white;
+}
 
 /* Import Custom Style Sheets*/
 @import 'parallax';
+@import 'experiment';
