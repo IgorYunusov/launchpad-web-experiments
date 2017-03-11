@@ -86,40 +86,10 @@
 <div id="display">
 		<video id="v" width="500" height="375"></video> <br/>
 		<button id = "b" type="button" class="btn btn-primary">Take Picture</button> <br/><br/>
-		<div>
 		<canvas id="c" width="500" height="375"></canvas>
-		</div>
 		<div id="pp"> </div>
 </div>
 
-<!-- <style type="text/css">
-	.glass-container {
-		position: relative;
-		width: 100%;
-
-		/* Mirror back */
-		transform: rotateY(180deg);
-		-webkit-transform:rotateY(180deg); /* Safari and Chrome */
-		-moz-transform:rotateY(180deg); /* Firefox */
-	}
-	.glass-list {
-		display: inline-block;
-		position: relative;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	.glass {
-		margin: 0.8em;
-	}
-
-	.hide {
-		display: none;
-	}
-
-	.show {
-		display: block;
-	}
-</style> -->
 <script src="./js/compatibility.js"></script>
 <script src="./js/pixelator.js"></script>
 
@@ -165,8 +135,9 @@ function canvasToImg() {
 
     var newImg = document.createElement("img"); // create img tag
     newImg.src = url;
+    newImg.style.border='10px solid black';
 
-    pp.insertBefore(document.createElement("br"), pp.firstChild);
+    //pp.insertBefore(document.createElement("br"), pp.firstChild);
     pp.insertBefore(newImg, pp.firstChild);
 
     randomlyPixelate(newImg);
@@ -244,6 +215,7 @@ function randomlyPixelate(newImg) {
 
 
 </script>
+
 
 <!-- END EXPERIMENT -->
 
