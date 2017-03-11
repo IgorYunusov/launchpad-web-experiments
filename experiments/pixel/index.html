@@ -1,0 +1,266 @@
+
+<!-- TO DO:
+1. Get Camera Feed
+2. Take a Snapshot
+3. Close Camera Feed (Maybe ReOpen it) / Always have it running
+4. Pixelate the Snapshot and display it
+--> 
+
+<!DOCTYPE html>
+<html lang="en-us" prefix="og: http://ogp.me/ns#">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+	<!-- FB Open Graph Tags -->
+	<meta property="fb:app_id"       content="638458746355035" />
+	<meta property="og:url"          content="http://lab.callaunchpad.org" />
+	<meta property="og:type"         content="website" />
+	<meta property="og:title"        content="Web Experiments by Launchpad." />
+	<meta property="og:description"  content="Online lab of live demos and web experiments." />
+	<!-- TODO: Update image -->
+	<meta property="og:image"        content="http://callaunchpad.org//img/og_image.png" />
+
+	<!-- Meta Tags for SEO -->
+	<title>Web Experiments by Launchpad</title>
+	<meta name='subject' content='Software' />
+	<meta name='description' content='Online lab of live demos and web experiments.' />
+	<meta name='keywords' content='intelligent, software, machine learning, artificial intelligence, data science, Berkeley, Cal, Sherlock, Whisper, Lively, Launchpad' />
+	<meta name='url' content='http://lab.callaunchpad.org' />
+	<meta name='reply-to' content='team@callaunchpad.org' />
+	<meta name='copyright' content='Launchpad' />
+	<meta name='robots' content='index, follow' />
+
+	<!-- FAVICON -->
+	<link rel="apple-touch-icon" sizes="57x57" href="../../img/favicon/apple-icon-57x57.png?v=2">
+	<link rel="apple-touch-icon" sizes="60x60" href="../../img/favicon/apple-icon-60x60.png?v=2">
+	<link rel="apple-touch-icon" sizes="72x72" href="../../img/favicon/apple-icon-72x72.png?v=2">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../img/favicon/apple-icon-76x76.png?v=2">
+	<link rel="apple-touch-icon" sizes="114x114" href="../../img/favicon/apple-icon-114x114.png?v=2">
+	<link rel="apple-touch-icon" sizes="120x120" href="../../img/favicon/apple-icon-120x120.png?v=2">
+	<link rel="apple-touch-icon" sizes="144x144" href="../../img/favicon/apple-icon-144x144.png?v=2">
+	<link rel="apple-touch-icon" sizes="152x152" href="../../img/favicon/apple-icon-152x152.png?v=2">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../img/favicon/apple-icon-180x180.png?v=2">
+	<link rel="icon" type="image/png" sizes="192x192"  href="../../img/favicon/android-icon-192x192.png?v=2">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon/favicon-32x32.png?v=2">
+	<link rel="icon" type="image/png" sizes="96x96" href="../../img/favicon/favicon-96x96.png?v=2">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png?v=2">
+	<link rel="manifest" href="../../img/favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png?v=2">
+	<meta name="theme-color" content="#ffffff">
+
+	<link rel="stylesheet" href="../../css/style.css">
+	<link rel="stylesheet" href="./css/hover.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+</head>
+
+	<body onload="startDemo()">
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+<!-- PLEASE EDIT THE METADATA -->
+
+<div class="parallax-container">
+  <div class="parallax">
+    <div class="title-cover valign-wrapper">
+      <div class="text-container valign center">
+        <h3 class="white-text">Pixelator</h3>
+        <p class="white-text">Web experiment that pixelates snapshots of you in a variety of styles.</p>
+      </div>
+    </div>
+    <img class="cover-img" src="../../img/backgrounds/star-background.jpg">
+  </div>
+</div>
+
+<div class="experiment container center grey lighten-5 z-depth-5">
+
+<!-- BEGIN EXPERIMENT -->
+
+<div id="display">
+		<video id="v" width="500" height="375"></video> <br/>
+		<button id = "b" type="button" class="btn btn-primary">Take Picture</button> <br/><br/>
+		<div>
+		<canvas id="c" width="500" height="375"></canvas>
+		</div>
+		<div id="pp"> </div>
+</div>
+
+<!-- <style type="text/css">
+	.glass-container {
+		position: relative;
+		width: 100%;
+
+		/* Mirror back */
+		transform: rotateY(180deg);
+		-webkit-transform:rotateY(180deg); /* Safari and Chrome */
+		-moz-transform:rotateY(180deg); /* Firefox */
+	}
+	.glass-list {
+		display: inline-block;
+		position: relative;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.glass {
+		margin: 0.8em;
+	}
+
+	.hide {
+		display: none;
+	}
+
+	.show {
+		display: block;
+	}
+</style> -->
+<script src="./js/compatibility.js"></script>
+<script src="./js/pixelator.js"></script>
+
+<script>
+
+function startDemo() {
+
+	var video = document.getElementById("v");
+	var canvas = document.getElementById("c");
+	var button = document.getElementById("b");
+	var canvasPixelated = document.getElementById("cp");
+	var pixelatedImg = document.getElementById("i");
+
+	try {
+		compatibility.getUserMedia({video: true}, function(stream) {
+			try {
+				video.src = compatibility.URL.createObjectURL(stream);
+			} catch (error) {
+				video.src = stream;
+			}
+			video.play();
+			button.disabled = false;
+			button.onclick = function() {
+				canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
+
+				canvasToImg();
+				
+			};
+		}, function (error) {
+			alert('Please add "s" to http in the URL.');
+		});
+	} catch (error) {
+		alert(error);
+	}
+
+}
+
+function canvasToImg() {
+    var canvas = document.getElementById("c");
+    var pp = document.getElementById("pp");
+
+    var url = canvas.toDataURL();
+
+    var newImg = document.createElement("img"); // create img tag
+    newImg.src = url;
+
+    pp.insertBefore(document.createElement("br"), pp.firstChild);
+    pp.insertBefore(newImg, pp.firstChild);
+
+    randomlyPixelate(newImg);
+}
+
+function randomlyPixelate(newImg) {
+	var n = Math.floor((Math.random()*10)+1); // random number between 1 and 2
+
+	if (n == 1) {
+		newImg.closePixelate([
+		    { resolution : 24 },
+		    { shape : 'circle', resolution : 24, size: 16, offset: 12, alpha: 0.5 }
+		  ]);
+	} else if (n == 2) {
+		newImg.closePixelate([
+			{ shape : 'diamond', resolution : 48, size: 50 },
+			{ shape : 'diamond', resolution : 48, offset : 24 },
+			{ shape : 'circle', resolution : 8, size: 6 }
+		]);
+	} else if (n == 3) {
+		newImg.closePixelate([
+			{ resolution: 32 },
+			{ shape : 'circle', resolution : 32, offset: 15 },
+			{ shape : 'circle', resolution : 32, size: 26, offset: 13 },
+			{ shape : 'circle', resolution : 32, size: 18, offset: 10 },
+			{ shape : 'circle', resolution : 32, size: 12, offset: 8 }
+		]);
+	} else if (n == 4) {
+		newImg.closePixelate([
+			{ resolution: 48 },
+			{ shape: 'diamond', resolution: 48, offset: 12, alpha: 0.5  },
+			{ shape: 'diamond', resolution: 48, offset: 36, alpha: 0.5  },
+			{ shape: 'circle', resolution: 16, size: 8, offset: 4, alpha: 0.5 }
+		]);
+	} else if (n == 5) {
+		newImg.closePixelate([
+			{ shape: 'circle', resolution: 32, size: 6, offset: 8 },
+			{ shape: 'circle', resolution: 32, size: 9, offset: 16 },
+			{ shape: 'circle', resolution: 32, size: 12, offset: 24 },
+			{ shape: 'circle', resolution: 32, size: 9, offset: 0 }
+		]);
+	} else if (n == 6) {
+		newImg.closePixelate([
+			{ shape: 'diamond', resolution: 24, size: 25 },
+			{ shape: 'diamond', resolution: 24, offset: 12 },
+			{ resolution: 24, alpha: 0.5 }
+		]);
+	} else if (n == 7) {
+		newImg.closePixelate([
+			{ shape: 'square', resolution: 32 },
+			{ shape: 'circle', resolution: 32, offset: 16 },
+			{ shape: 'circle', resolution: 32, offset: 0, alpha: 0.5 },
+			{ shape: 'circle', resolution: 16, size: 9, offset: 0, alpha: 0.5 }
+		]);
+	} else if (n == 8) {
+		newImg.closePixelate([
+			{ shape : 'circle', resolution : 24 },
+			{ shape : 'circle', resolution : 24, size: 9, offset: 12 }
+		]);
+	} else if (n == 9) {
+		newImg.closePixelate([
+			{ shape : 'square', resolution : 48, offset: 24 },
+			{ shape : 'circle', resolution : 48, offset : 0 },
+			{ shape : 'diamond', resolution : 16, size: 15, offset : 0, alpha : 0.6 },
+			{ shape : 'diamond', resolution : 16, size: 15, offset : 8, alpha : 0.6 }
+		]);
+	} else if (n == 10) {
+		newImg.closePixelate([
+			{ shape : 'square', resolution : 48 },
+			{ shape : 'diamond', resolution : 12, size: 8 },
+			{ shape : 'diamond', resolution : 12, size: 8, offset : 6 }
+		]);
+	} 
+}
+
+
+</script>
+
+<!-- END EXPERIMENT -->
+
+
+<style type="text/css">
+	body {
+	background-image: linear-gradient(90deg, rgba(194, 233, 221, 0.5) 1%,
+					  rgba(104, 119, 132, 0.5) 100%),
+					  linear-gradient(-90deg, #494d71 0%, rgba(217, 230, 185, 0.5) 80%);
+	}
+</style>
+
+		<script>
+			(function($) {
+				$('.parallax').parallax();
+			})(jQuery);
+		</script>
+</div>
+</body>
+</html>
