@@ -53,6 +53,12 @@
 
 	<link rel="stylesheet" href="../../css/style.css">
 	<link rel="stylesheet" href="./css/hover.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
 	</head>
 
 	<body onload="startDemo()">
@@ -79,11 +85,11 @@
 
 <div id="display">
 <!--	<video id="video" class="z-depth-3"></video> -->
-		<video id="v" width="500" height="500"></video>
-		<input id="b" type="button" disabled="true" value="Take Picture"></input>
+		<video id="v" width="500" height="375"></video> <br/>
+		<!-- <input id="b" type="button" disabled="true" value="Take Picture"></input> -->
+		<button id = "b" type="button" class="btn btn-primary">Take Picture</button> <br/><br/>
 		<div>
-		<canvas id="c" width="500" height="500"></canvas>
-		<canvas id="cp" width="500" height="500"></canvas>
+		<canvas id="c" width="500" height="375"></canvas>
 		</div>
 </div>
 
@@ -126,6 +132,7 @@ function startDemo() {
 	var canvas = document.getElementById("c");
 	var button = document.getElementById("b");
 	var canvasPixelated = document.getElementById("cp");
+	var pixelatedImg = document.getElementById("i");
 
 	try {
 		compatibility.getUserMedia({video: true}, function(stream) {
@@ -138,9 +145,9 @@ function startDemo() {
 			button.disabled = false;
 			button.onclick = function() {
 				canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
-				ClosePixelate(canvas.toDataURL());
-				//var img = canvas.toDataURL("image/png");
-				//alert("done");
+
+				canvasToImg();
+				
 			};
 		}, function (error) {
 			alert('Please add "s" to http in the URL.');
@@ -158,10 +165,24 @@ function startDemo() {
 		
 	// }, function(err) { alert("there was an error " + err)});
 
-
 }
 
+function canvasToImg() {
+    var canvas = document.getElementById("c");
 
+    var url = canvas.toDataURL();
+
+    var newImg = document.createElement("img"); // create img tag
+    newImg.src = url;
+    document.getElementById("display").appendChild(newImg); // add to end of your document
+
+    newImg.closePixelate([
+	    { resolution : 24 },
+	    { shape : 'circle', resolution : 24, size: 16, offset: 12, alpha: 0.5 }
+	  ]);
+
+	document.getElementById("display").appendChild(document.createElement("br"));
+}
 
 // function startDemo() {
 // 	var smoother = new Smoother([0.9999999, 0.9999999, 0.999, 0.999], [0, 0, 0, 0]),
