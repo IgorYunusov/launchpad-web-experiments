@@ -54,12 +54,12 @@
 	<link rel="stylesheet" href="../../css/style.css">
 	<link rel="stylesheet" href="./css/hover.css">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-	</head>
+</head>
 
 	<body onload="startDemo()">
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -72,7 +72,7 @@
     <div class="title-cover valign-wrapper">
       <div class="text-container valign center">
         <h3 class="white-text">Pixelator</h3>
-        <p class="white-text">Web experiment that pixelates snapshots from video streams</p>
+        <p class="white-text">Web experiment that pixelates snapshots of you in a variety of styles.</p>
       </div>
     </div>
     <img class="cover-img" src="../../img/backgrounds/star-background.jpg">
@@ -84,13 +84,12 @@
 <!-- BEGIN EXPERIMENT -->
 
 <div id="display">
-<!--	<video id="video" class="z-depth-3"></video> -->
 		<video id="v" width="500" height="375"></video> <br/>
-		<!-- <input id="b" type="button" disabled="true" value="Take Picture"></input> -->
 		<button id = "b" type="button" class="btn btn-primary">Take Picture</button> <br/><br/>
 		<div>
 		<canvas id="c" width="500" height="375"></canvas>
 		</div>
+		<div id="pp"> </div>
 </div>
 
 <!-- <style type="text/css">
@@ -156,118 +155,97 @@ function startDemo() {
 		alert(error);
 	}
 
-
-
-	// navigator.getUserMedia({video: true}, function(stream) {
-	// 	var canvas = document.getElementById("c");
-	// 	var button = document.getElementById("b");
-	// 	video.src = stream;
-		
-	// }, function(err) { alert("there was an error " + err)});
-
 }
 
 function canvasToImg() {
     var canvas = document.getElementById("c");
+    var pp = document.getElementById("pp");
 
     var url = canvas.toDataURL();
 
     var newImg = document.createElement("img"); // create img tag
     newImg.src = url;
-    document.getElementById("display").appendChild(newImg); // add to end of your document
 
-    newImg.closePixelate([
-	    { resolution : 24 },
-	    { shape : 'circle', resolution : 24, size: 16, offset: 12, alpha: 0.5 }
-	  ]);
+    pp.insertBefore(document.createElement("br"), pp.firstChild);
+    pp.insertBefore(newImg, pp.firstChild);
 
-	document.getElementById("display").appendChild(document.createElement("br"));
+    randomlyPixelate(newImg);
 }
 
-// function startDemo() {
-// 	var smoother = new Smoother([0.9999999, 0.9999999, 0.999, 0.999], [0, 0, 0, 0]),
-// 		video = document.getElementById('video'),
-// 		glasses = document.getElementById('glasses'),
-// 		detector;
+function randomlyPixelate(newImg) {
+	var n = Math.floor((Math.random()*10)+1); // random number between 1 and 2
 
-// 	try {
-// 		compatibility.getUserMedia({video: true}, function(stream) {
-// 			try {
-// 				video.src = compatibility.URL.createObjectURL(stream);
-// 			} catch (error) {
-// 				video.src = stream;
-// 			}
-// 			compatibility.requestAnimationFrame(play);
-// 		}, function (error) {
-// 			alert('Please add "s" to http in the URL.');
-// 		});
-// 	} catch (error) {
-// 		alert(error);
-// 	}
+	if (n == 1) {
+		newImg.closePixelate([
+		    { resolution : 24 },
+		    { shape : 'circle', resolution : 24, size: 16, offset: 12, alpha: 0.5 }
+		  ]);
+	} else if (n == 2) {
+		newImg.closePixelate([
+			{ shape : 'diamond', resolution : 48, size: 50 },
+			{ shape : 'diamond', resolution : 48, offset : 24 },
+			{ shape : 'circle', resolution : 8, size: 6 }
+		]);
+	} else if (n == 3) {
+		newImg.closePixelate([
+			{ resolution: 32 },
+			{ shape : 'circle', resolution : 32, offset: 15 },
+			{ shape : 'circle', resolution : 32, size: 26, offset: 13 },
+			{ shape : 'circle', resolution : 32, size: 18, offset: 10 },
+			{ shape : 'circle', resolution : 32, size: 12, offset: 8 }
+		]);
+	} else if (n == 4) {
+		newImg.closePixelate([
+			{ resolution: 48 },
+			{ shape: 'diamond', resolution: 48, offset: 12, alpha: 0.5  },
+			{ shape: 'diamond', resolution: 48, offset: 36, alpha: 0.5  },
+			{ shape: 'circle', resolution: 16, size: 8, offset: 4, alpha: 0.5 }
+		]);
+	} else if (n == 5) {
+		newImg.closePixelate([
+			{ shape: 'circle', resolution: 32, size: 6, offset: 8 },
+			{ shape: 'circle', resolution: 32, size: 9, offset: 16 },
+			{ shape: 'circle', resolution: 32, size: 12, offset: 24 },
+			{ shape: 'circle', resolution: 32, size: 9, offset: 0 }
+		]);
+	} else if (n == 6) {
+		newImg.closePixelate([
+			{ shape: 'diamond', resolution: 24, size: 25 },
+			{ shape: 'diamond', resolution: 24, offset: 12 },
+			{ resolution: 24, alpha: 0.5 }
+		]);
+	} else if (n == 7) {
+		newImg.closePixelate([
+			{ shape: 'square', resolution: 32 },
+			{ shape: 'circle', resolution: 32, offset: 16 },
+			{ shape: 'circle', resolution: 32, offset: 0, alpha: 0.5 },
+			{ shape: 'circle', resolution: 16, size: 9, offset: 0, alpha: 0.5 }
+		]);
+	} else if (n == 8) {
+		newImg.closePixelate([
+			{ shape : 'circle', resolution : 24 },
+			{ shape : 'circle', resolution : 24, size: 9, offset: 12 }
+		]);
+	} else if (n == 9) {
+		newImg.closePixelate([
+			{ shape : 'square', resolution : 48, offset: 24 },
+			{ shape : 'circle', resolution : 48, offset : 0 },
+			{ shape : 'diamond', resolution : 16, size: 15, offset : 0, alpha : 0.6 },
+			{ shape : 'diamond', resolution : 16, size: 15, offset : 8, alpha : 0.6 }
+		]);
+	} else if (n == 10) {
+		newImg.closePixelate([
+			{ shape : 'square', resolution : 48 },
+			{ shape : 'diamond', resolution : 12, size: 8 },
+			{ shape : 'diamond', resolution : 12, size: 8, offset : 6 }
+		]);
+	} 
+}
 
-// 	function play() {
-// 		compatibility.requestAnimationFrame(play);
-// 		if (video.paused) video.play();
 
-// 		if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0) {
-
-//           	// Prepare the detector once the video dimensions are known:
-//           	if (!detector) {
-// 	      		var width = ~~(60 * video.videoWidth / video.videoHeight);
-// 				var height  =60;
-// 	      		detector = new objectdetect.detector(width, height, 1.1, objectdetect.frontalface_alt);
-// 	      	}
-
-//       		// Perform the actual detection:
-// 			var coords = detector.detect(video, 1);
-// 			if (coords[0]) {
-// 				var coord = coords[0];
-// 				coord = smoother.smooth(coord);
-
-// 				// Rescale coordinates from detector to video coordinate space:
-// 				coord[0] *= video.videoWidth / detector.canvas.width;
-// 				coord[1] *= video.videoHeight / detector.canvas.height;
-// 				coord[2] *= video.videoWidth / detector.canvas.width;
-// 				coord[3] *= video.videoHeight / detector.canvas.height;
-
-// 				// Display glasses overlay:
-// 				glasses.style.left    = ~~(coord[0] + coord[2] * 1.0/8 + video.offsetLeft) + 'px';
-// 				glasses.style.top     = ~~(coord[1] + coord[3] * 0.8/8 + video.offsetTop) + 'px';
-// 				glasses.style.width   = ~~(coord[2] * 6/8) + 'px';
-// 				glasses.style.height  = ~~(coord[3] * 6/8) + 'px';
-// 				glasses.style.opacity = 1;
-
-// 			} else {
-// 				var opacity = glasses.style.opacity - 0.2;
-// 				glasses.style.opacity = opacity > 0 ? opacity : 0;
-// 			}
-// 		}
-// 	}
-
-// 	var g = [];
-// 	var c = document.getElementById('list').children;
-// 	for (var i = 0; i < c.length; i++) {
-// 		g.push(c[i].children[0]);
-// 	}
-// 	console.log(g);
-
-// 	[].slice.call(g).forEach(function(e) {
-// 		e.addEventListener('click', function() {
-// 			glasses.src = e.src;
-// 		}, false);
-// 	});
-// };
 </script>
 
 <!-- END EXPERIMENT -->
-
-
-
-
-
-
-
-
 
 
 <style type="text/css">
