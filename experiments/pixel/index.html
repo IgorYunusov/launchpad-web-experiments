@@ -114,9 +114,7 @@ function startDemo() {
 			button.disabled = false;
 			button.onclick = function() {
 				canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
-
 				canvasToImg();
-				
 			};
 		}, function (error) {
 			alert('Please add "s" to http in the URL.');
@@ -145,6 +143,7 @@ function canvasToImg() {
 
 function randomlyPixelate(newImg) {
 	var n = Math.floor((Math.random()*10)+1); // random number between 1 and 2
+	console.log(newImg.width);
 
 	if (n == 1) {
 		newImg.closePixelate([
