@@ -126,5 +126,10 @@
 				]
 			}
 		</script>
+        <script type="text/javascript" charset="utf-8">
+            if (location.protocol != 'https:') {
+                location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+            }
+        </script>
 	</body>
 </html>
